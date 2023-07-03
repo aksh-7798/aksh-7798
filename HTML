@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do App</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<style>
+    .container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+form {
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  width: 100%;
+  padding: 5px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 5px;
+}
+
+.completed-task {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+</style>
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <form id="task-form">
+      <input type="text" id="task-input" placeholder="Add a new task...">
+      <button type="submit">Add Task</button>
+    </form>
+    <div id="pending-tasks">
+      <h2>Pending Tasks</h2>
+      <ul id="pending-tasks-list"></ul>
+    </div>
+    <div id="completed-tasks">
+      <h2>Completed Tasks</h2>
+      <ul id="completed-tasks-list"></ul>
+    </div>
+  </div>
+
+  <script src="app.js">
+    const taskForm = document.getElementById('task-form');
+const taskInput = document.getElementById('task-input');
+const pendingTasksList = document.getElementById('pending-tasks-list');
+const completedTasksList = document.getElementById('completed-tasks-list');
+
+let tasks = [];
+
+// Add a new task
+taskForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  const task = taskInput.value.trim();
+  if (task !== '') {
+    addTask(task);
+    taskInput.value = '';
+  }
+});
+
+// Add a task to the pending tasks list
+function addTask(task) {
+  const taskItem = {
+    id: Date.now(),
+    name: task,
+    completed: false,
+    createdTime: new Date().toLocaleString(),
+    completedTime: null
+  };
+
+  tasks.push(taskItem);
+  renderTask(taskItem);
+
+  updateLocalStorage();
+}
+
+// Render a task item
+function renderTask(taskItem) {
+  const listItem = document.createElement('li');
+  listItem.innerHTML = `
+    <span>${taskItem.name}</span>
+    <div>
+      <button class="complete-button">Complete</button>
+      <button class="edit-button">Edit</button>
+      <button class="delete-button">Delete</button>
+    </div>
+    <small>${taskItem.createdTime}</small>
+  `;
+
+  // Complete task
+  const completeButton = listItem.querySelector('.complete-button');
+  completeButton.addEventListener('click', function() {
+    completeTask(taskItem.id);
+  });
+
+  // Edit task
+  const editButton = listItem.querySelector('.edit-button');
+  editButton.addEventListener('click', function() {
+    editTask(taskItem.id);
+  });
+
+  // Delete task
+  const deleteButton = listItem.querySelector('.delete-button');
+  deleteButton.addEventListener('click', function() {
+    delete
+  });
+  </script>
+</body>
+</html>
+
